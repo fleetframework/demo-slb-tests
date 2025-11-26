@@ -206,17 +206,18 @@ Modify `cucumber.js` to customize:
 - Environment variable support
 - Headless execution by default
 
-### 9. **Robust Cookie Banner Handling**
-- Automatic dismissal of OneTrust cookie consent
-- Smart overlay detection and removal
-- JavaScript-based fallback mechanisms
-- Prevents test flakiness from cookie overlays
+### 9. **Simplified Cookie Banner Handling**
+- Automatic dismissal of OneTrust cookie consent on first page load
+- Handled once in Before hook when browser starts
+- No need for per-test cookie checks
+- Cookies persist across entire test session
+- Prevents test flakiness without performance overhead
 
-### 10. **Resilient Click Interactions**
-- Multi-strategy click approach (normal → JavaScript → navigation)
-- Automatic retry logic for blocked interactions
-- Overlay removal before critical actions
-- Ensures reliable element interactions
+### 10. **Clean Test Code**
+- Step definitions focused on business logic
+- No cookie handling code in tests
+- Infrastructure concerns separated in hooks
+- Easy to read and maintain
 
 ## 🎯 Implemented Test Scenarios
 
@@ -320,14 +321,12 @@ Given('I am on my page', async function () {
 
 ## 🐛 Troubleshooting
 
-### Tests failing with cookie overlay errors
-- Cookie banners are automatically handled by the framework
-- If issues persist, check `src/utils/cookie-handler.ts`
-- The framework uses multi-strategy approach:
-  1. OneTrust Accept button click
-  2. JavaScript-based overlay removal
-  3. Fallback to force interactions
-- Cookie dismissal only happens once in single session mode
+### Tests failing with cookie banner visible
+- Cookies are automatically accepted when browser first starts (Before hook)
+- Check console logs for "✓ Initial page loaded and cookies accepted"
+- If cookie banner persists, check `src/utils/cookie-handler.ts`
+- Verify the OneTrust button selector is still valid
+- Cookie acceptance happens once per session in single session mode
 
 ### Tests failing with timeout errors
 - Increase timeout in `playwright.config.ts`
@@ -343,11 +342,6 @@ Given('I am on my page', async function () {
 - Run `npm install` to ensure all dependencies are installed
 - Check `tsconfig.json` configuration
 - Verify all imports are correct
-
-### Click interactions failing
-- Framework automatically handles overlays before clicks
-- Uses multi-strategy approach: normal click → JavaScript click → navigation
-- Check screenshots in reports for visual debugging
 
 ## 🔄 CI/CD Integration
 

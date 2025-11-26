@@ -20,18 +20,25 @@ BeforeAll(async function () {
  * Before Hook
  * Runs before each scenario
  * Creates browser, context, and page
- * Dismisses cookie banner on first scenario (in single session mode)
+ * On first run: navigates to homepage and dismisses cookie banner
  */
 Before(async function () {
   const browser = await createBrowser();
   const context = await createContext(browser);
   await createPage(context);
 
-  // Accept cookies only on first scenario in single session mode
-  // This prevents redundant cookie dismissals across scenarios
+  // On first scenario, navigate to homepage and accept cookies
+  // This ensures cookies are handled before any test steps execute
   if (!config.singleSession || isFirstScenarioRun()) {
     const page = getPage();
+
+    // Navigate to base URL to trigger cookie banner
+    await page.goto(config.baseURL, { waitUntil: 'domcontentloaded' });
+
+    // Dismiss cookie banner immediately after page loads
     await dismissCookieBanner(page);
+
+    console.log('✓ Initial page loaded and cookies accepted');
   }
 });
 
