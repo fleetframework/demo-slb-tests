@@ -1,0 +1,36 @@
+{
+  "name": "slb-tests",
+  "version": "1.0.0",
+  "description": "Test automation framework for SLB website using TypeScript, Cucumber, and Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:chromium": "cucumber-js --profile default",
+    "test:headed": "HEADLESS=false cucumber-js",
+    "test:report": "node src/support/report-generator.js",
+    "test:all": "npm run test && npm run test:report",
+    "lint": "eslint 'src/**/*.ts' 'features/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' 'features/**/*.ts' --fix",
+    "format": "prettier --write 'src/**/*.ts' 'features/**/*.ts'",
+    "clean": "rm -rf reports dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

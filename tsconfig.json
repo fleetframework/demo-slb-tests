@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "types": ["node", "@cucumber/cucumber", "@playwright/test"],
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*", "features/**/*"],
+  "exclude": ["node_modules", "dist", "reports"]
+}
+

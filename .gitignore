@@ -1,0 +1,12 @@
+node_modules/
+dist/
+reports/
+test-results/
+playwright-report/
+*.log
+.env
+.DS_Store
+package-lock.json
+.idea/
+*.md
+!README.md
