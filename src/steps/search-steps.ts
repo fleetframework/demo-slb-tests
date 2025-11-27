@@ -84,11 +84,19 @@ Then('I should be redirected to the search results page', async function () {
 
 Then('the search results should be displayed', async function () {
   const page = getPage();
-  await page.waitForTimeout(2000); // Wait for results to load
+  // Wait for search results to render by checking common result selectors
+  const resultsSelectors = ['article.search-result', '.search-result', '.document-card', '.search-results'];
 
-  // Check for search results page elements
-  const pageLoaded = await page.locator('body').count() > 0;
-  expect(pageLoaded).toBeTruthy();
+  let found = false;
+  for (const selector of resultsSelectors) {
+    const count = await page.locator(selector).count();
+    if (count > 0) {
+      found = true;
+      break;
+    }
+  }
+
+  expect(found).toBeTruthy();
 });
 
 Then('the search query should be {string}', async function (expectedQuery: string) {
